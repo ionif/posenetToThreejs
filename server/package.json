@@ -1,0 +1,21 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "A simple Node app built on Express, instantly up and running.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "node-static": "^0.7.11",
+    "socketio": "^1.0.0",
+    "ws": "^5.1.1"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "license": "MIT"
+}
