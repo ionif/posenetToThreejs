@@ -1,24 +1,16 @@
-var http = require('http'),
-    socketIO = require('socket.io'),
-    fs = require('fs'),
-    server,
-    io;
+// server.js
+var Server = require('ws').Server;
+var port = process.env.PORT || 3030;
+var ws = new Server({port: port});
 
-server = http.createServer(function (req, res) {
-    fs.readFile(__dirname + '/index.html', function (err, data) {
-      res.writeHead(200);
-      res.end(data);
-    });
-});
-
-server.listen(3030);
-io = socketIO(server);
-
-io.on('connection', function (socket) {
-  socket.emit('from-server', {
-      greeting: 'Hello'
+ws.on('connection', function(w){
+  
+  w.on('message', function(msg){
+    console.log('message from client');
   });
-  socket.on('greeting-from-client', function (message) {
-    console.log(message);
+  
+  w.on('close', function() {
+    console.log('closing connection');
   });
+
 });
