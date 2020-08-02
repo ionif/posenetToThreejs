@@ -430,7 +430,7 @@ function detectPoseInRealTime(video, net) {
       if (score >= minPoseConfidence) {
         if (guiState.output.showPoints) {
           //send keypoints to websocket server
-          socket.emit('message', keypoints);
+          socket.emit('from-client', JSON.stringify(keypoints));
           drawKeypoints(keypoints, minPartConfidence, ctx);
         }
         if (guiState.output.showSkeleton) {

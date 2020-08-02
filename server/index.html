@@ -3,7 +3,7 @@
 </head>
 <body>
 <script src="/socket.io/socket.io.js"></script>
-<script>
+<script type="text/javascript">
 //websocket stuff
 var socket = io('http://localhost:3030');
 socket.on('from-server', function (message) {
@@ -11,8 +11,14 @@ socket.on('from-server', function (message) {
         document.createTextNode(message.greeting)
     );
 });
+socket.on('from-client', function (message) {
+    document.body.appendChild(
+        document.createTextNode(message.data)
+    );
+});
+
 </script>
-<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+<!--<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
 <script type="module">
 
   // Find the latest version by visiting https://unpkg.com/three. The URL will
@@ -76,12 +82,14 @@ function init()
 	////////////
 	// CUSTOM //
 	////////////
-	
 	var geometry = new THREE.SphereGeometry( 30, 32, 16 );
 	var material = new THREE.MeshLambertMaterial( { color: 0x000088 } );
-	mesh = new THREE.Mesh( geometry, material );
-	mesh.position.set(0,40,0);
-	scene.add(mesh);
+
+	//for (let i = 0; i < keypoints.length; i++) {
+	  	mesh = new THREE.Mesh( geometry, material );
+		mesh.position.set(0,40,0);
+		scene.add(mesh);
+	//}
 	
 }
 
@@ -100,6 +108,6 @@ function render()
 {
 	renderer.render( scene, camera );
 }
-</script>
+</script>-->
 </body>
 </html>

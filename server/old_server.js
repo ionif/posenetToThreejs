@@ -18,7 +18,10 @@ io.on('connection', function (socket) {
   socket.emit('from-server', {
       greeting: 'Hello'
   });
-  socket.on('message', function (message) {
+  socket.on('from-client', function (message) {
     console.log(message);
+    socket.emit('server-data', {
+      data: message
+  });
   });
 });
