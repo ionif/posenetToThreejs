@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
   });
   socket.on('from-client', function (message) {
     console.log(message);
-    socket.emit('from-client', {
+    socket.broadcast.emit('from-client', {
       data: message
     });
   });

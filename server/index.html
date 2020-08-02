@@ -14,7 +14,7 @@ socket.on('from-server', function (message) {
 });
 socket.on('from-client', function (message) {
 	console.log("lerp");
-	document.body.innerText = "message";
+	document.body.innerText = message.data;
 });
 
 </script>
