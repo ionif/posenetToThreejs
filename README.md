@@ -3,6 +3,8 @@
 This repo aims to use the posenet ml model to allow someone with Google Cardboard and another device (smartphone, tablet, laptop) experience what it's like for your body to be inside a virtual world.
 It uses SocketIO for websocket communication on port 3030. 
 
+You need yarn and npm for this to work.
+
 To start the server: \
 `cd server/` \
 `npm start`
