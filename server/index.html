@@ -2,19 +2,19 @@
 <head>
 </head>
 <body>
+<p id="text"></p>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
 //websocket stuff
-var socket = io('http://localhost:3030');
+var socket = io.connect('http://localhost:3030');
 socket.on('from-server', function (message) {
-    document.body.appendChild(
-        document.createTextNode(message.greeting)
-    );
+	console.log("derp");
+    document.body.innerText = message.greeting;
+    socket.emit('message', 'Hello server');
 });
 socket.on('from-client', function (message) {
-    document.body.appendChild(
-        document.createTextNode(message.data)
-    );
+	console.log("lerp");
+	document.body.innerText = "message";
 });
 
 </script>
