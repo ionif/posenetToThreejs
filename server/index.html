@@ -9,18 +9,19 @@
 var socket = io.connect('http://localhost:3030');
 socket.on('from-server', function (message) {
 	console.log("derp");
-    document.body.innerText = message.greeting;
+    //document.body.innerText = message.greeting;
     socket.emit('message', 'Hello server');
 });
+let keypoints;
 socket.on('from-client', function (message) {
 	console.log("lerp");
-	document.body.innerText = message.data;
+	keypoints = JSON.parse(message.data);
+	//document.body.innerText = message.data;
 });
-
+console.log(keypoints);
 </script>
-<!--<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
+<div id="ThreeJS" style="position: absolute; left:0px; top:0px"></div>
 <script type="module">
-
   // Find the latest version by visiting https://unpkg.com/three. The URL will
   // redirect to the newest stable release.
   import * as THREE from 'https://unpkg.com/three@0.119.1/build/three.module.js';
@@ -52,7 +53,7 @@ function init()
 	var VIEW_ANGLE = 45, ASPECT = SCREEN_WIDTH / SCREEN_HEIGHT, NEAR = 0.1, FAR = 20000;
 	camera = new THREE.PerspectiveCamera( VIEW_ANGLE, ASPECT, NEAR, FAR);
 	scene.add(camera);
-	camera.position.set(0,150,400);
+	camera.position.set(300,500,400);
 	camera.lookAt(scene.position);	
 	// RENDERER
 	renderer = new THREE.WebGLRenderer( {antialias:true} ); 
@@ -79,18 +80,6 @@ function init()
 	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
 	scene.add(skyBox);
 	
-	////////////
-	// CUSTOM //
-	////////////
-	var geometry = new THREE.SphereGeometry( 30, 32, 16 );
-	var material = new THREE.MeshLambertMaterial( { color: 0x000088 } );
-
-	//for (let i = 0; i < keypoints.length; i++) {
-	  	mesh = new THREE.Mesh( geometry, material );
-		mesh.position.set(0,40,0);
-		scene.add(mesh);
-	//}
-	
 }
 
 function animate() 
@@ -98,16 +87,32 @@ function animate()
     requestAnimationFrame( animate );
 	render();		
 	update();
+	//console.log(keypoints);
 }
 
 function update()
 {
+	////////////
+	// CUSTOM //
+	////////////
+
+	if (keypoints != null) {
+		var geometry = new THREE.SphereGeometry( 30, 32, 16 );
+		var material = new THREE.MeshLambertMaterial( { color: 0x000088 } );
+	
+		for (let i = 0; i < keypoints.length; i++) {
+			console.log(keypoints[i]);
+	  		mesh = new THREE.Mesh( geometry, material );
+			mesh.position.set(keypoints[i].position.x,keypoints[i].position.y,0);
+			scene.add(mesh);
+		}
+	}
 }
 
 function render() 
 {
 	renderer.render( scene, camera );
 }
-</script>-->
+</script>
 </body>
 </html>
