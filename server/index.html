@@ -35,7 +35,9 @@ console.log(keypoints);
 // MAIN
 
 // standard global variables
-let camera, scene, renderer, clock, rightArm, rightElbow, rightHand;
+let camera, scene, renderer, clock;
+let rightArm, rightElbow, rightHand;
+let leftArm, leftElbow, leftHand;
 
 init();
 animate();
@@ -59,13 +61,16 @@ function init() {
 	loader.load( 'https://threejs.org/examples/models/gltf/Soldier.glb', function ( gltf ) {
 
 		const model = gltf.scene;
-		/*model.traverse(o => {
-		if (o.isBone) {
-		  console.log(o.name);
-		}});*/
+
+		//right arm
 		rightArm = model.getObjectByName( 'mixamorigRightArm' );
 		rightElbow = model.getObjectByName( 'mixamorigRightForeArm' );
 		rightHand = model.getObjectByName( 'mixamorigRightHand' );
+		
+		//left arm
+		leftArm = model.getObjectByName( 'mixamorigLeftArm' );
+		leftElbow = model.getObjectByName( 'mixamorigLeftForeArm' );
+		leftHand = model.getObjectByName( 'mixamorigLeftHand' );
 		
 		scene.add( model );
 
@@ -102,28 +107,62 @@ function animate() {
 	const t = clock.getElapsedTime();
 
 	if (keypoints != null) {
-		if ( rightArm ) {
-			rightArm.rotation.z = 0;
-			if (keypoints[5] != null) {
-				if (keypoints[5].score > 0.80) {
-					rightArm.position.z = keypoints[5].position.x / -25;
-					rightArm.position.x = keypoints[5].position.y / -25;
-				}
-			}
-		}
-		if ( rightElbow ) {
-			if (keypoints[7] != null) {
+		if ( rightArm) {
+			if ( rightElbow ) {
 				if (keypoints[7].score > 0.80) {
-					rightElbow.position.z = keypoints[7].position.x / -25;
-					rightElbow.position.x = keypoints[7].position.y / -25;
+					if (keypoints[5].score > 0.80) {
+						let diagX = keypoints[5].position.x - keypoints[7].position.x;
+						let diagY = keypoints[5].position.y - keypoints[7].position.y;
+						let diagDist = Math.sqrt( diagX*diagX + diagY*diagY );
+
+						let normX = keypoints[5].position.x - keypoints[7].position.x;
+						let normDist = Math.sqrt( normX*normX );
+
+						rightArm.rotation.z = Math.acos(normDist / diagDist);
+					}
+
+					if ( rightHand ) {
+						if (keypoints[9].score > 0.80) {
+							let diagX = keypoints[7].position.x - keypoints[9].position.x;
+							let diagY = keypoints[7].position.y - keypoints[9].position.y;
+							let diagDist = Math.sqrt( diagX*diagX + diagY*diagY );
+
+							let normX = keypoints[7].position.x - keypoints[9].position.x;
+							let normDist = Math.sqrt( normX*normX );
+
+							rightElbow.rotation.z = Math.acos(normDist / diagDist);
+						}
+					}
 				}
 			}
 		}
-		if ( rightHand ) {
-			if (keypoints[9] != null) {
-				if (keypoints[9].score > 0.80) {
-					rightHand.position.z = keypoints[9].position.x / -25;
-					rightHand.position.x = keypoints[9].position.y / -25;
+
+		if ( leftArm ) {
+			if ( leftElbow ) {
+				if (keypoints[8].score > 0.80) {
+					if (keypoints[6].score > 0.80) {
+						let diagX = keypoints[6].position.x - keypoints[8].position.x;
+						let diagY = keypoints[6].position.y - keypoints[8].position.y;
+						let diagDist = Math.sqrt( diagX*diagX + diagY*diagY );
+
+						let normX = keypoints[6].position.x - keypoints[8].position.x;
+						let normDist = Math.sqrt( normX*normX );
+
+						leftArm.rotation.z = Math.acos(normDist / diagDist);
+					}
+
+					if ( leftHand ) {
+						if (keypoints[10].score > 0.80) {
+							let diagX = keypoints[8].position.x - keypoints[10].position.x;
+							let diagY = keypoints[8].position.y - keypoints[10].position.y;
+							let diagDist = Math.sqrt( diagX*diagX + diagY*diagY );
+
+							let normX = keypoints[8].position.x - keypoints[10].position.x;
+							let normDist = Math.sqrt( normX*normX );
+
+							leftElbow.rotation.z = Math.acos(normDist / diagDist);
+						}
+					}
 				}
 			}
 		}
