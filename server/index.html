@@ -103,27 +103,27 @@ function animate() {
 
 	if (keypoints != null) {
 		if ( rightArm ) {
+			rightArm.rotation.z = 0;
 			if (keypoints[5] != null) {
 				if (keypoints[5].score > 0.80) {
-					rightArm.position.x = keypoints[5].position.x / 25;
-					rightArm.position.y = keypoints[5].position.y / 25;
+					rightArm.position.z = keypoints[5].position.x / -25;
+					rightArm.position.x = keypoints[5].position.y / -25;
 				}
-			//rightArm.rotation.z += Math.sin( t ) * 0.005;
 			}
 		}
 		if ( rightElbow ) {
 			if (keypoints[7] != null) {
 				if (keypoints[7].score > 0.80) {
-					rightElbow.position.x = keypoints[7].position.x / 25;
-					rightElbow.position.y = keypoints[7].position.y / 25;
+					rightElbow.position.z = keypoints[7].position.x / -25;
+					rightElbow.position.x = keypoints[7].position.y / -25;
 				}
 			}
 		}
 		if ( rightHand ) {
 			if (keypoints[9] != null) {
 				if (keypoints[9].score > 0.80) {
-					rightArm.position.x = keypoints[9].position.x / 25;
-					rightArm.position.y = keypoints[9].position.y / 25;
+					rightHand.position.z = keypoints[9].position.x / -25;
+					rightHand.position.x = keypoints[9].position.y / -25;
 				}
 			}
 		}
