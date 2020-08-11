@@ -1,4 +1,4 @@
-# Controlling Three.js 3D model with Tensorflow.js Posenet and SocketIO
+# Controlling Three.js 3D model over websockets with Tensorflow.js Posenet and SocketIO
 
 ![demo](https://github.com/ionif/posenetToThreejs/blob/master/demo.gif)
 
