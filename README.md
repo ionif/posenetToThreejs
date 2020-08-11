@@ -1,7 +1,11 @@
-# the Poor Boys immersive XR experience
+# Controlling Three.js 3D model with Tensorflow.js Posenet and SocketIO
 
-This repo aims to use the posenet ml model to allow someone with Google Cardboard and another device (smartphone, tablet, laptop) experience what it's like for your body to be inside a virtual world.
+![demo](https://github.com/ionif/posenetToThreejs/blob/master/demo.gif)
+
 It uses SocketIO for websocket communication on port 3030. 
+
+There are two clients: posnet and http://localhost:3030
+that connect to the websocket server at ws://localhost:3030
 
 You need yarn and npm for this to work.
 
